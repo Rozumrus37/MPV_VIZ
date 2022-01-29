@@ -23,6 +23,7 @@ import time
 FULL_ROTATION = 360
 SIZE_IMG = 150
 
+
 def play_with_angle(patch: torch.tensor, orientation_estimation):
   """
   Interactive visualization(with the slider) of working of your orientation_estimation function.
@@ -39,11 +40,13 @@ def play_with_angle(patch: torch.tensor, orientation_estimation):
   fig, ax = plt.subplots(1, 2)
   ax1 = ax[0].imshow(img)
   ax2 = ax[1].imshow(img)
+  plt.close()
 
   slider = widgets.FloatSlider(value=0, min=0, max=360, step=1, description="Angle:")
   widgets.interact(img_viz, patch=fixed(patch), orientation_estimation=fixed(orientation_estimation), fig=fixed(fig), ax1=fixed(ax1), ax2=fixed(ax2), alfa=slider)
 
 
+# helper function. It is called as a parametr of widgets.interact()
 def img_viz(patch: torch.tensor, orientation_estimation, fig, ax1, ax2, alfa=0):
   angle = torch.tensor([np.float32(alfa)])
   patch_rotated = kornia.geometry.transform.rotate(patch, angle)
