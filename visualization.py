@@ -22,7 +22,7 @@ import time
 
 FULL_ROTATION = 360
 SIZE_IMG = 150
-
+alpha = 0
 
 def play_with_angle(patch: torch.tensor, orientation_estimation):
   """
@@ -41,7 +41,6 @@ def play_with_angle(patch: torch.tensor, orientation_estimation):
   ax1 = ax[0].imshow(img)
   ax2 = ax[1].imshow(img)
   plt.close()
-
   slider = widgets.FloatSlider(value=0, min=0, max=360, step=1, description="Angle:")
   widgets.interact(img_viz, patch=fixed(patch), orientation_estimation=fixed(orientation_estimation), fig=fixed(fig), ax1=fixed(ax1), ax2=fixed(ax2), alfa=slider)
 
@@ -51,8 +50,10 @@ def img_viz(patch: torch.tensor, orientation_estimation, fig, ax1, ax2, alfa=0):
   angle = torch.tensor([np.float32(alfa)])
   patch_rotated = kornia.geometry.transform.rotate(patch, angle)
 
+  global alpha
+  alpha = alfa
+
   estimated_angle = orientation_estimation(patch_rotated).item()
-  #estimated_angle = get_angle(alfa).item() # for testing 
 
   estim_angle_to_tensor = torch.tensor([(-1)*math.degrees(estimated_angle)])
   patch_out = kornia.geometry.transform.rotate(patch_rotated, estim_angle_to_tensor)
@@ -64,5 +65,6 @@ def img_viz(patch: torch.tensor, orientation_estimation, fig, ax1, ax2, alfa=0):
   ax2.set_data(img2)
   display(fig)
   plt.close()
+
 
  
