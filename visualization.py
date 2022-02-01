@@ -41,8 +41,7 @@ def play_with_angle(patch: torch.tensor, orientation_estimation):
   fig, ax = plt.subplots(1, 2)
   ax1 = ax[0].imshow(img)
   ax2 = ax[1].imshow(img)
-  #plt.close()
-  draw()
+  plt.close()
   slider = widgets.FloatSlider(value=0, min=0, max=360, step=1, description="Angle:")
   widgets.interact(img_viz, patch=fixed(patch), orientation_estimation=fixed(orientation_estimation), fig=fixed(fig), ax1=fixed(ax1), ax2=fixed(ax2), alfa=slider)
 
