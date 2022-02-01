@@ -19,11 +19,15 @@ from tkinter import ttk
 from ipywidgets import interact, interactive, fixed, interact_manual
 import mpl_interactions.ipyplot as iplt
 import time
-import ksdjfdsfsdkjghkdsjhgksdjhgkjsdg
+
 
 FULL_ROTATION = 360
 SIZE_IMG = 150
 
+
+def new_func():
+  print("WHY")
+  
 def play_with_angle(patch: torch.tensor, orientation_estimation):
   """
   Interactive visualization(with the slider) of working of your orientation_estimation function.
