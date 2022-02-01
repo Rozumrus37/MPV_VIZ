@@ -46,11 +46,16 @@ def play_with_angle(patch: torch.tensor, orientation_estimation):
 
 def get_angle(x: torch.Tensor, num_angular_bins: int = 36):
   """
-  Created to test the vizualization.
-
-  Returns:
-    angle: 1d tensor in radians shape
-  """
+    Function, which estimates the dominant gradient orientation of the given patches, in radians.
+    Zero angle points towards right.
+    
+    Args:
+        x: (torch.Tensor) shape (B, 1, PS, PS)
+        num_angular_bins: int, default is 36
+    
+    Returns:
+        angles: (torch.Tensor) in radians shape [Bx1]
+    """
   estimate = kornia.feature.orientation.PatchDominantGradientOrientation()
   return estimate.forward(x)
 
