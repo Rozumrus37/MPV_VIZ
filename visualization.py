@@ -26,7 +26,7 @@ SIZE_IMG = 150
 
 
 def new_func():
-  print("WHY")
+  print("WHffffffY")
   
 def play_with_angle(patch: torch.tensor, orientation_estimation):
   """
