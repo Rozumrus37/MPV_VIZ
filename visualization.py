@@ -19,6 +19,7 @@ from tkinter import ttk
 from ipywidgets import interact, interactive, fixed, interact_manual
 import mpl_interactions.ipyplot as iplt
 import time
+import ksdjfdsfsdkjghkdsjhgksdjhgkjsdg
 
 FULL_ROTATION = 360
 SIZE_IMG = 150
