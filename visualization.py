@@ -51,7 +51,8 @@ def play_with_angle(patch: torch.tensor, orientation_estimation):
   """
 
   img = kornia.tensor_to_image(patch)
-  img = cv2.resize(img, (32, 32)) 
+  if img.size != (32, 32):
+    img = cv2.resize(img, (32, 32)) 
   patch = kornia.image_to_tensor(img, False).float() 
 
   fig, ax = plt.subplots(1, 2)
