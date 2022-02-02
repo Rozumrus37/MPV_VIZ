@@ -78,7 +78,7 @@ def img_viz(patch: torch.tensor, orientation_estimation, fig, ax1, ax2, alfa=0):
   ax1.set_data(img1)
   ax2.set_data(img2)
   display(fig)
-  plt.close()
+  #plt.close()
 
 
  
