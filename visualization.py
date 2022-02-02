@@ -23,6 +23,21 @@ import time
 FULL_ROTATION = 360
 
 
+def get_angle(x: torch.Tensor, num_angular_bins: int = 36):
+  """
+  Created to test the vizualization.
+
+  Returns:
+    angle: 1d tensor in radians shape
+  """
+  img = kornia.tensor_to_image(x)
+  if img.size != (32, 32):
+    img = cv2.resize(img, (32, 32)) 
+  x = kornia.image_to_tensor(img, False).float() 
+
+  estimate = kornia.feature.orientation.PatchDominantGradientOrientation()
+  return estimate.forward(x)
+
 def play_with_angle(patch: torch.Tensor, orientation_estimation):
   """
   Interactive visualization(with the slider) of working of your orientation_estimation function.
