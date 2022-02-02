@@ -38,7 +38,7 @@ def get_angle(x: torch.Tensor, num_angular_bins: int = 36):
   return estimate.forward(x)
 
 
-def play_with_angle(patch: torch.tensor, orientation_estimation):
+def play_with_angle(patch: torch.Tensor, orientation_estimation):
   """
   Interactive visualization(with the slider) of working of your orientation_estimation function.
 
