@@ -20,11 +20,24 @@ from ipywidgets import interact, interactive, fixed, interact_manual
 import mpl_interactions.ipyplot as iplt
 import time
 
-
 FULL_ROTATION = 360
-SIZE_IMG = 150
 
-  
+def get_angle(x: torch.Tensor, num_angular_bins: int = 36):
+  """
+  Created to test the vizualization.
+
+  Returns:
+    angle: 1d tensor in radians shape
+  """
+  img = kornia.tensor_to_image(x)
+  if img.size != (32, 32):
+    img = cv2.resize(img, (32, 32)) 
+  x = kornia.image_to_tensor(img, False).float() 
+
+  estimate = kornia.feature.orientation.PatchDominantGradientOrientation()
+  return estimate.forward(x)
+
+
 def play_with_angle(patch: torch.tensor, orientation_estimation):
   """
   Interactive visualization(with the slider) of working of your orientation_estimation function.
@@ -38,32 +51,24 @@ def play_with_angle(patch: torch.tensor, orientation_estimation):
   """
 
   img = kornia.tensor_to_image(patch)
+  img = cv2.resize(img, (32, 32)) 
+  patch = kornia.image_to_tensor(img, False).float() 
+
   fig, ax = plt.subplots(1, 2)
   ax1 = ax[0].imshow(img)
   ax2 = ax[1].imshow(img)
   plt.close() # called only once
+
   slider = widgets.FloatSlider(value=0, min=0, max=360, step=1, description="Angle:")
   widgets.interact(img_viz, patch=fixed(patch), orientation_estimation=fixed(orientation_estimation), fig=fixed(fig), ax1=fixed(ax1), ax2=fixed(ax2), alfa=slider)
 
 
-def get_angle(x: torch.Tensor, num_angular_bins: int = 36):
-  """
-    Function, which estimates the dominant gradient orientation of the given patches, in radians.
-    Zero angle points towards right.
-    
-    Args:
-        x: (torch.Tensor) shape (B, 1, PS, PS)
-        num_angular_bins: int, default is 36
-    
-    Returns:
-        angles: (torch.Tensor) in radians shape [Bx1]
-    """
-  estimate = kornia.feature.orientation.PatchDominantGradientOrientation()
-  return estimate.forward(x)
-
-
-# helper function. It is called as a parametr of widgets.interact()
 def img_viz(patch: torch.tensor, orientation_estimation, fig, ax1, ax2, alfa=0):
+  """
+  Helper function. It is called as a parametr of widgets.interact()
+
+  """
+
   angle = torch.tensor([np.float32(alfa)])
   patch_rotated = kornia.geometry.transform.rotate(patch, angle)
 
@@ -78,7 +83,6 @@ def img_viz(patch: torch.tensor, orientation_estimation, fig, ax1, ax2, alfa=0):
   ax1.set_data(img1)
   ax2.set_data(img2)
   display(fig)
-  #plt.close()
 
 
  
