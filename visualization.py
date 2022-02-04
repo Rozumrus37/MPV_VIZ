@@ -71,12 +71,12 @@ def img_viz(patch: torch.tensor, orientation_estimation, fig, ax1, ax2, alfa=0):
   """
 
   angle = torch.tensor([np.float32(alfa)])
-  patch_rotated = kornia.geometry.transform.rotate(patch, angle)
+  patch_rotated = kornia.geometry.transform.rotate(patch, angle, padding_mode='border')
 
   estimated_angle = orientation_estimation(patch_rotated).item()
 
   estim_angle_to_tensor = torch.tensor([(-1)*math.degrees(estimated_angle)])
-  patch_out = kornia.geometry.transform.rotate(patch_rotated, estim_angle_to_tensor)
+  patch_out = kornia.geometry.transform.rotate(patch_rotated, estim_angle_to_tensor, padding_mode='border')
 
   img1 = kornia.tensor_to_image(patch_rotated)
   img2 = kornia.tensor_to_image(patch_out)
