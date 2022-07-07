@@ -107,6 +107,7 @@ def main(input_dir, output_dir, output_vis_dir, bbox_parquet, show_results=False
             # get bounding box if available
             bboxes = image2bbox.get(image_name)
             pose_results = []
+            bboxes = None
             if bboxes is not None:
                 count_bboxes_from_file_used += 1
 
