@@ -89,8 +89,8 @@ def main(input_dir, output_dir, output_vis_dir, bbox_parquet, show_results=False
     dataset = pose_model.cfg.data["test"]["type"]
 
     # (optional) load table with bounding boxes from parquet file
-    bbox_df = pd.read_parquet(bbox_parquet)
-    image2bbox = bbox_df.groupby("image_name").apply(_group_to_bbox_list).to_dict()
+    #bbox_df = pd.read_parquet(bbox_parquet)
+    #image2bbox = bbox_df.groupby("image_name").apply(_group_to_bbox_list).to_dict()
 
     # get list of image paths to process
     image_paths = [os.path.join(input_dir, x) for x in os.listdir(input_dir)]
@@ -105,7 +105,7 @@ def main(input_dir, output_dir, output_vis_dir, bbox_parquet, show_results=False
             image_name = os.path.basename(image_path)
 
             # get bounding box if available
-            bboxes = image2bbox.get(image_name)
+            #bboxes = image2bbox.get(image_name)
             pose_results = []
             bboxes = None
             if bboxes is not None:
