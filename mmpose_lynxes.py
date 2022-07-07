@@ -17,7 +17,7 @@ def get_args_params():
     parser.add_argument(
         "--bbox-parquet",
         type=str,
-        required=True,
+        required=False,
         help="Parquet file with bounding boxes",
     )
     parser.add_argument(
