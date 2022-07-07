@@ -79,7 +79,7 @@ def main(input_dir, output_dir, output_vis_dir, bbox_parquet, show_results=False
     device = "cuda:0" if torch.cuda.is_available() else "cpu"
 
     # build the pose model from a config file and a checkpoint file
-    pose_config = "scripts/mmpose/hrnet_w48_animalpose_256x256.py"
+    pose_config = "hrnet.py"
     pose_checkpoint = (
         "https://download.openmmlab.com/mmpose/"
         + "animal/hrnet/hrnet_w48_animalpose_256x256-34644726_20210426.pth"
